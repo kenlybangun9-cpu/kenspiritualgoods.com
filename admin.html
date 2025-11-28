@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Produk Kenspiritualgoods</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f9;
+        }
+        .header-bg {
+            background-color: #1e3a8a;
+        }
+        .text-primary {
+            color: #d97706;
+        }
+        .bg-primary {
+            background-color: #d97706;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header-bg shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <h1 class="text-white text-2xl font-bold tracking-wider">Ken<span class="text-primary">spiritual</span>goods Admin</h1>
+                <a href="kenspiritualgoods_ecommerce.html" class="px-3 py-1 bg-white text-blue-900 font-semibold rounded-full hover:bg-gray-200 transition duration-300">
+                    <i data-lucide="store" class="inline-block w-4 h-4 mr-1"></i> Lihat Toko
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <h2 class="text-3xl font-bold text-blue-900 mb-6 border-b pb-2">Manajemen Produk</h2>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Kolom 1: Formulir Tambah/Edit Produk -->
+            <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg h-fit sticky top-4">
+                <h3 id="form-title" class="text-2xl font-semibold mb-4 text-primary">Tambah Produk Baru</h3>
+                <form id="product-form" class="space-y-4">
+                    <input type="hidden" id="product-id">
+
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Nama Produk</label>
+                        <input type="text" id="name" required class="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
+                    </div>
+
+                    <div>
+                        <label for="price" class="block text-sm font-medium text-gray-700">Harga (Rp)</label>
+                        <input type="number" id="price" required min="1000" class="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
+                    </div>
+
+                    <div>
+                        <label for="category" class="block text-sm font-medium text-gray-700">Kategori</label>
+                        <select id="category" required class="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
+                            <option value="Rosario">Rosario</option>
+                            <option value="Medali & Salib">Medali & Salib</option>
+                            <option value="Buku Doa">Buku Doa</option>
+                            <option value="Patung Kecil">Patung Kecil</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+
+                    <div class="border p-4 rounded-lg bg-blue-50">
+                        <label for="imageFile" class="block text-sm font-bold text-blue-800 mb-2">Unggah Gambar Produk (.jpg, .jpeg, .png)</label>
+                        <input type="file" id="imageFile" accept=".jpg, .jpeg, .png" class="mt-1 w-full p-2 border border-blue-300 rounded-lg">
+                        <p class="text-xs text-gray-500 mt-1">Penting: Jika mengedit, unggah file baru atau biarkan kosong untuk mempertahankan gambar lama.</p>
+
+                        <!-- Pratinjau Gambar -->
+                        <div id="image-preview-container" class="mt-4 hidden text-center">
+                            <h5 class="text-sm font-semibold mb-2">Pratinjau Gambar:</h5>
+                            <img id="image-preview" class="w-24 h-24 object-cover mx-auto rounded-md shadow-md border-2 border-primary">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="desc" class="block text-sm font-medium text-gray-700">Deskripsi</label>
+                        <textarea id="desc" rows="3" required class="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"></textarea>
+                    </div>
+
+                    <div class="flex items-center">
+                        <input type="checkbox" id="isFeatured" class="h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
+                        <label for="isFeatured" class="ml-2 block text-sm font-medium text-gray-700">Jadikan Produk Unggulan</label>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="w-full bg-primary text-white font-bold py-3 rounded-lg shadow-md hover:bg-amber-800 transition duration-300">
+                        Simpan Produk
+                    </button>
+                    <button type="button" id="cancel-edit-btn" class="w-full bg-gray-300 text-gray-800 font-semibold py-3 rounded-lg hover:bg-gray-400 transition duration-300 hidden">
+                        Batal Edit
+                    </button>
+                </form>
+            </div>
+
+            <!-- Kolom 2: Daftar Produk -->
+            <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-900">Daftar Produk Aktif (<span id="product-count">0</span>)</h3>
+                <div id="product-list" class="space-y-4">
+                    <!-- Produk akan di-render di sini -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Script Fungsionalitas Admin -->
+    <script>
+        const PRODUCTS_STORAGE_KEY = 'kenspiritualgoods_products';
+        const productForm = document.getElementById('product-form');
+        const formTitle = document.getElementById('form-title');
+        const cancelEditBtn = document.getElementById('cancel-edit-btn');
+        const productListElement = document.getElementById('product-list');
+        const productCountElement = document.getElementById('product-count');
+        const imageFileEl = document.getElementById('imageFile');
+        const imagePreviewEl = document.getElementById('image-preview');
+        const imagePreviewContainer = document.getElementById('image-preview-container');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Variabel untuk menyimpan Base64 saat mengedit
+        let currentBase64Image = null;
+
+        /** Memuat data produk dari localStorage */
+        const loadProducts = () => {
+            const storedProducts = localStorage.getItem(PRODUCTS_STORAGE_KEY);
+            return storedProducts ? JSON.parse(storedProducts) : [];
+        };
+
+        /** Menyimpan data produk ke localStorage */
+        const saveProducts = (products) => {
+            localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(products));
+        };
+
+        /** Memformat angka menjadi Rupiah (Rp) */
+        const formatRupiah = (number) => {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(number);
+        };
+
+        /** Mengkonversi file menjadi string Base64 (Asynchronous) */
+        const fileToBase64 = (file) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        };
+
+        /** Merender daftar produk di halaman admin */
+        const renderProductList = () => {
+            const products = loadProducts();
+            productListElement.innerHTML = '';
+            productCountElement.textContent = products.length;
+
+            if (products.length === 0) {
+                productListElement.innerHTML = '<p class="text-gray-500 italic">Belum ada produk. Tambahkan yang pertama!</p>';
+                return;
+            }
+
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'flex items-start p-4 border border-gray-200 rounded-lg bg-gray-50 hover:bg-gray-100 transition duration-200 space-x-4';
+
+                // Gunakan properti 'img' yang kini menyimpan data Base64 atau URL
+                const imgSrc = product.img || 'https://placehold.co/80x80/94a3b8/ffffff?text=No+Img';
+                
+                productCard.innerHTML = `
+                    <img src="${imgSrc}" alt="${product.name}" onerror="this.onerror=null;this.src='https://placehold.co/80x80/94a3b8/ffffff?text=No+Img';" class="w-20 h-20 object-cover rounded-md shadow">
+                    <div class="flex-grow">
+                        <h4 class="font-bold text-blue-900">${product.name}</h4>
+                        <p class="text-sm text-gray-600">Kategori: ${product.category}</p>
+                        <p class="text-lg font-bold text-primary">${formatRupiah(product.price)}</p>
+                        <span class="text-xs text-green-600 font-semibold">${product.isFeatured ? '⭐ Unggulan' : ''}</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="editProduct(${product.id})" class="text-sm text-blue-600 hover:text-blue-800 font-medium p-1 rounded hover:bg-blue-100">
+                            <i data-lucide="square-pen" class="w-5 h-5"></i>
+                        </button>
+                        <button onclick="deleteProduct(${product.id})" class="text-sm text-red-600 hover:text-red-800 font-medium p-1 rounded hover:bg-red-100">
+                            <i data-lucide="trash-2" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                `;
+                productListElement.appendChild(productCard);
+            });
+            lucide.createIcons();
+        };
+
+        /** Menghapus produk */
+        window.deleteProduct = (id) => {
+            if (!window.confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
+                return;
+            }
+            let products = loadProducts();
+            products = products.filter(p => p.id !== id);
+            saveProducts(products);
+            renderProductList();
+            resetForm(); // Reset form jika produk yang sedang diedit dihapus
+        };
+
+        /** Mengisi formulir untuk mengedit produk */
+        window.editProduct = (id) => {
+            const products = loadProducts();
+            const product = products.find(p => p.id === id);
+
+            if (product) {
+                // Set data form
+                document.getElementById('product-id').value = product.id;
+                document.getElementById('name').value = product.name;
+                document.getElementById('price').value = product.price;
+                document.getElementById('category').value = product.category;
+                document.getElementById('desc').value = product.desc;
+                document.getElementById('isFeatured').checked = product.isFeatured;
+
+                // Tampilkan gambar yang ada (Base64 atau URL)
+                currentBase64Image = product.img;
+                imagePreviewEl.src = product.img;
+                imagePreviewContainer.classList.remove('hidden');
+
+                // Set judul dan tombol
+                formTitle.textContent = `Edit Produk: ${product.name}`;
+                submitBtn.textContent = 'Perbarui Produk';
+                cancelEditBtn.classList.remove('hidden');
+                imageFileEl.value = null; // Kosongkan input file
+
+                // Gulir ke atas formulir
+                productForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        };
+
+        /** Mereset formulir ke mode 'Tambah Produk Baru' */
+        const resetForm = () => {
+            productForm.reset();
+            document.getElementById('product-id').value = '';
+            formTitle.textContent = 'Tambah Produk Baru';
+            submitBtn.textContent = 'Simpan Produk';
+            cancelEditBtn.classList.add('hidden');
+            imagePreviewContainer.classList.add('hidden');
+            imagePreviewEl.src = '';
+            currentBase64Image = null; // Reset Base64 saat ini
+        };
+
+        // Event Listener untuk pratinjau gambar saat file dipilih
+        imageFileEl.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    imagePreviewEl.src = event.target.result;
+                    imagePreviewContainer.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreviewContainer.classList.add('hidden');
+            }
+        });
+
+        // Event Listener untuk tombol Batal Edit
+        cancelEditBtn.addEventListener('click', resetForm);
+
+        // Event Listener untuk submit formulir (Asynchronous)
+        productForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Memproses Gambar...';
+
+            const isEditing = document.getElementById('product-id').value !== '';
+            let products = loadProducts();
+            const file = imageFileEl.files[0];
+            let imageBase64 = currentBase64Image; // Mulai dengan gambar yang ada (jika mengedit)
+
+            try {
+                // 1. Proses Gambar
+                if (file) {
+                    if (!file.type.match('image/jpeg') && !file.type.match('image/png')) {
+                        alert('Format file tidak didukung. Harap unggah file JPG atau PNG.');
+                        return; // Hentikan proses jika format salah
+                    }
+                    // Konversi file baru ke Base64 (tunggu selesai)
+                    imageBase64 = await fileToBase64(file);
+                } else if (!isEditing) {
+                    // Jika produk baru dan tidak ada file, berikan peringatan atau set default
+                    alert('Harap unggah gambar produk.');
+                    return;
+                }
+
+                // 2. Kumpulkan Data Produk
+                const newProductData = {
+                    name: document.getElementById('name').value,
+                    price: parseInt(document.getElementById('price').value),
+                    category: document.getElementById('category').value,
+                    desc: document.getElementById('desc').value,
+                    isFeatured: document.getElementById('isFeatured').checked,
+                    img: imageBase64 // Gunakan data Base64
+                };
+
+                // 3. Simpan/Perbarui Data
+                if (isEditing) {
+                    const idToEdit = parseInt(document.getElementById('product-id').value);
+                    const index = products.findIndex(p => p.id === idToEdit);
+
+                    if (index !== -1) {
+                        products[index] = { ...newProductData, id: idToEdit };
+                    }
+                } else {
+                    const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+                    products.push({ ...newProductData, id: newId });
+                }
+
+                saveProducts(products);
+                renderProductList();
+                resetForm();
+
+            } catch (error) {
+                console.error("Gagal memproses gambar atau menyimpan produk:", error);
+                alert('Terjadi kesalahan saat menyimpan produk.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = isEditing ? 'Perbarui Produk' : 'Simpan Produk';
+            }
+        });
+
+        // Inisialisasi saat halaman dimuat
+        window.onload = () => {
+            renderProductList();
+            lucide.createIcons();
+        };
+    </script>
+</body>
+</html>

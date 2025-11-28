@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenspiritualgoods - Aksesori & Perlengkapan Rohani Katolik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* CSS yang sama dengan file Admin untuk konsistensi */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc;
+        }
+        .header-bg {
+            background-color: #1e3a8a; /* Deep Blue */
+        }
+        .text-primary {
+            color: #d97706; /* Amber/Gold */
+        }
+        .bg-primary {
+            background-color: #d97706;
+        }
+        .btn-primary {
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .btn-primary:hover {
+            background-color: #b45309;
+            transform: translateY(-1px);
+        }
+        /* Style tambahan untuk Slider */
+        .slider-item {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .slider-item.active {
+            display: block;
+            opacity: 1;
+        }
+        /* Animasi Kunci (Keyframe for pulse effect) */
+        @keyframes pulse-icon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .key-stat-icon {
+            animation: pulse-icon 2s infinite ease-in-out;
+        }
+        /* Style untuk tombol kuantitas di keranjang */
+        .qty-btn {
+            background-color: #f3f4f6;
+            border: 1px solid #d1d5db;
+            color: #1e3a8a;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .qty-btn:hover {
+            background-color: #e5e7eb;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <header class="header-bg shadow-lg sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <span class="text-white text-3xl font-bold tracking-wider">Ken<span class="text-primary">spiritual</span>goods</span>
+                </div>
+                
+                <div class="flex items-center space-x-2 md:space-x-4">
+                    <!-- Navigasi Utama (Desktop Only) -->
+                    <nav class="hidden md:flex space-x-4 text-white text-lg font-medium items-center">
+                        <a href="#katalog" class="hover:text-primary transition duration-300">Katalog Produk</a>
+                        <a href="#fitur" class="hover:text-primary transition duration-300">Mengapa Kami?</a>
+                        
+                        <!-- Tautan Admin -->
+                        <a href="admin.html" class="p-2 rounded-full hover:bg-white/10 transition duration-300" title="Akses Admin">
+                            <i data-lucide="lock" class="h-6 w-6 text-white hover:text-primary"></i>
+                        </a>
+                        
+                        <!-- Tautan Instagram BARU -->
+                        <a href="#" class="p-2 rounded-full hover:bg-white/10 transition duration-300" title="Kunjungi Instagram Kami">
+                            <i data-lucide="instagram" class="h-6 w-6 text-white hover:text-primary"></i>
+                        </a>
+                    </nav>
+                    
+                    <!-- Ikon Keranjang (Cart) - Selalu Tampil -->
+                    <button id="cart-btn" class="relative p-2 rounded-full hover:bg-white/10 transition duration-300">
+                        <i data-lucide="shopping-cart" class="h-6 w-6 text-white"></i>
+                        <span id="cart-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+
+        <!-- 1. Auto Slider Banner -->
+        <section id="banner" class="relative overflow-hidden h-[30rem] sm:h-[36rem] bg-gray-100">
+            <div id="slider-container" class="w-full h-full">
+                
+                <!-- Slide 1 -->
+                <div class="slider-item active flex items-center justify-center bg-cover bg-center" style="background-image: url('https://placehold.co/1200x600/1e3a8a/ffffff?text=Selamat+Datang+di+KenSpiritualGoods');">
+                    <div class="text-center p-8 bg-black bg-opacity-40 rounded-xl mx-4">
+                        <h1 class="text-4xl sm:text-6xl font-extrabold text-white leading-tight mb-4 animate-fadeIn">
+                            Perlengkapan Rohani Katolik Terbaik
+                        </h1>
+                        <p class="text-xl text-gray-200 max-w-3xl mx-auto">
+                            Rosario, Medali, Salib, dan Kitab Suci dengan kualitas pilihan.
+                        </p>
+                        <a href="#katalog" class="btn-primary mt-8 inline-flex items-center px-8 py-3 text-lg font-semibold rounded-full shadow-lg text-white bg-primary hover:bg-amber-800 transition duration-300">
+                            Mulai Belanja Sekarang
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slider-item flex items-center justify-center bg-cover bg-center" style="background-image: url('https://placehold.co/1200x600/d97706/1e3a8a?text=Kualitas+Terjamin');">
+                    <div class="text-center p-8 bg-white bg-opacity-90 rounded-xl mx-4">
+                        <h1 class="text-4xl sm:text-6xl font-extrabold text-blue-900 leading-tight mb-4">
+                            Kualitas Premium, Harga Terjangkau
+                        </h1>
+                        <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+                            Kami hanya menyediakan produk dengan material terbaik untuk kebutuhan spiritual Anda.
+                        </p>
+                        <a href="#katalog" class="mt-8 inline-flex items-center px-8 py-3 text-lg font-semibold rounded-full shadow-lg text-white bg-blue-900 hover:bg-blue-800 transition duration-300">
+                            Lihat Produk Terbaru
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+            <!-- Navigasi Slider (Dots) -->
+            <div id="slider-dots" class="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex space-x-3">
+                <!-- Dots akan di-render di sini oleh JS -->
+            </div>
+        </section>
+
+        <!-- 2. Key Statistics / Keunggulan Toko -->
+        <section id="fitur" class="py-16 sm:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-blue-900 mb-12 text-center">Mengapa Memilih Kami?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    
+                    <div class="p-6 bg-gray-50 rounded-xl shadow-md border-t-4 border-primary">
+                        <i data-lucide="shield-check" class="key-stat-icon w-12 h-12 text-primary mx-auto mb-4"></i>
+                        <h3 class="text-xl font-bold text-blue-900 mb-2">Jaminan Kualitas</h3>
+                        <p class="text-gray-600">Setiap produk dijamin asli dan telah melalui proses QC ketat.</p>
+                    </div>
+
+                    <div class="p-6 bg-gray-50 rounded-xl shadow-md border-t-4 border-primary">
+                        <i data-lucide="package" class="key-stat-icon w-12 h-12 text-primary mx-auto mb-4"></i>
+                        <h3 class="text-xl font-bold text-blue-900 mb-2">Pengiriman Cepat</h3>
+                        <p class="text-gray-600">Diproses dalam 1x24 jam. Aman sampai di tangan Anda.</p>
+                    </div>
+
+                    <div class="p-6 bg-gray-50 rounded-xl shadow-md border-t-4 border-primary">
+                        <i data-lucide="heart" class="key-stat-icon w-12 h-12 text-primary mx-auto mb-4"></i>
+                        <h3 class="text-xl font-bold text-blue-900 mb-2">Dukungan Rohani</h3>
+                        <p class="text-gray-600">Menyediakan perlengkapan yang mendukung devosi harian Anda.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Katalog Produk (Product Catalog) -->
+        <section id="katalog" class="py-16 sm:py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-blue-900 mb-10 text-center">Daftar Produk Toko</h2>
+                
+                <!-- Filter Kategori (Dinamic based on loaded products) -->
+                <div id="category-filters" class="flex justify-center flex-wrap gap-3 mb-10">
+                    <!-- Filters will be generated here -->
+                </div>
+
+                <!-- Daftar Produk -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="product-list">
+                    <!-- Produk akan di-render di sini oleh JS dari Local Storage -->
+                    <p class="col-span-full text-center text-xl text-gray-500 py-10" id="loading-message">
+                        Memuat produk dari Admin...
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Keranjang Modal (Fungsional) -->
+        <div id="cart-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg p-6">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-900 border-b pb-2 flex justify-between items-center">
+                    Keranjang Belanja
+                    <button id="close-cart-modal" class="text-gray-500 hover:text-gray-900">
+                        <i data-lucide="x" class="h-6 w-6"></i>
+                    </button>
+                </h3>
+                <div id="cart-items" class="space-y-3 max-h-80 overflow-y-auto">
+                    <!-- Item keranjang di sini -->
+                </div>
+                <div id="empty-cart-message" class="text-center py-5 text-gray-500 hidden">Keranjang Anda kosong.</div>
+                <div class="mt-4 pt-4 border-t border-gray-200 flex justify-between items-center">
+                    <span class="text-xl font-bold text-blue-900">Total:</span>
+                    <span id="cart-total" class="text-2xl text-primary font-extrabold">Rp 0</span>
+                </div>
+                <button id="checkout-btn" class="btn-primary w-full mt-4 py-3 text-white font-semibold rounded-lg bg-primary disabled:bg-gray-400" disabled>
+                    Lanjutkan ke Pembayaran
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer yang lebih informatif -->
+    <footer class="header-bg mt-12 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                
+                <!-- Kolom 1: Logo & Deskripsi -->
+                <div>
+                    <span class="text-white text-2xl font-bold tracking-wider mb-4 block">Ken<span class="text-primary">spiritual</span>goods</span>
+                    <p class="text-sm text-gray-400">
+                        Penyedia aksesoris dan perlengkapan rohani Katolik terpercaya.
+                    </p>
+                </div>
+
+                <!-- Kolom 2: Tautan Cepat -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Tautan Cepat</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#katalog" class="hover:text-primary transition duration-300">Katalog</a></li>
+                        <li><a href="#fitur" class="hover:text-primary transition duration-300">Keunggulan</a></li>
+                        <li><a href="#" class="hover:text-primary transition duration-300">Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 3: Kontak -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Hubungi Kami</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li class="flex items-center"><i data-lucide="mail" class="w-4 h-4 mr-2"></i> email@kenspiritual.com</li>
+                        <li class="flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-2"></i> +62 812-3456-7890</li>
+                        <li class="flex items-start"><i data-lucide="map-pin" class="w-4 h-4 mr-2 mt-1"></i> Jakarta, Indonesia</li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 4: Sosial Media -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Ikuti Kami</h4>
+                    <div class="flex space-x-3">
+                        <a href="#" class="text-gray-400 hover:text-primary transition duration-300" aria-label="Instagram"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition duration-300" aria-label="Facebook"><i data-lucide="facebook" class="w-6 h-6"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition duration-300" aria-label="Twitter"><i data-lucide="twitter" class="w-6 h-6"></i></a>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-10 pt-6 border-t border-gray-700 text-center">
+                <p class="text-sm text-gray-400">&copy; 2025 Kenspiritualgoods. Semua Hak Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript untuk Fungsionalitas Toko -->
+    <script>
+        const PRODUCTS_STORAGE_KEY = 'kenspiritualgoods_products';
+        let PRODUCTS = []; // Akan diisi dari Local Storage
+        let cart = JSON.parse(localStorage.getItem('kenspiritualgoods_cart')) || [];
+        let currentFilter = 'Semua';
+
+        // --- Data & Initialization ---
+
+        /** Memuat data produk dari localStorage */
+        const loadProducts = () => {
+            const storedProducts = localStorage.getItem(PRODUCTS_STORAGE_KEY);
+            
+            // Log Diagnostik
+            console.log('--- DIAGNOSTIK PRODUK TOKO ---');
+            console.log('Data mentah dari Local Storage (String):', storedProducts);
+            
+            if (storedProducts) {
+                try {
+                    PRODUCTS = JSON.parse(storedProducts);
+                } catch (error) {
+                    console.error('ERROR: Gagal mem-parse data JSON.', error);
+                    PRODUCTS = []; // Menggunakan array kosong jika gagal
+                }
+            } else {
+                 PRODUCTS = [];
+            }
+            console.log(`Jumlah produk yang dimuat: ${PRODUCTS.length}`);
+        };
+
+        /** Memformat angka menjadi Rupiah (Rp) */
+        const formatRupiah = (number) => {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(number);
+        };
+        
+        // --- Cart Logic (Fungsional) ---
+        
+        const calculateCartTotal = () => {
+             return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        }
+        
+        const saveCart = () => {
+            // Hapus item dengan kuantitas 0
+            cart = cart.filter(item => item.quantity > 0);
+            localStorage.setItem('kenspiritualgoods_cart', JSON.stringify(cart));
+            document.getElementById('cart-count').textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('checkout-btn').disabled = cart.length === 0;
+        };
+
+        window.addToCart = (productId) => {
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+            
+            // Cek jika produk sudah habis stok
+            if (product.stock !== undefined && product.stock <= 0) {
+                 // Ganti alert dengan logging
+                 console.log(`Maaf, produk '${product.name}' sudah habis stok.`);
+                 return;
+            }
+
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                // Batasi penambahan jika melebihi stok
+                if (product.stock !== undefined && existingItem.quantity >= product.stock) {
+                    console.log(`Stok maksimal untuk '${product.name}' adalah ${product.stock}.`);
+                    return;
+                }
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1, price: product.price, img: product.img });
+            }
+
+            saveCart();
+            const currentItemCount = cart.reduce((t, i) => t + i.quantity, 0);
+            console.log(`'${product.name}' ditambahkan. Total item di keranjang: ${currentItemCount}`);
+        };
+
+        window.updateCartItemQuantity = (productId, change) => {
+            const item = cart.find(item => item.id === productId);
+            const productData = PRODUCTS.find(p => p.id === productId);
+
+            if (item) {
+                const newQuantity = item.quantity + change;
+                
+                if (newQuantity < 1) {
+                    // Jika mencoba mengurangi hingga 0, panggil fungsi hapus
+                    removeCartItem(productId);
+                    return;
+                }
+                
+                // Batasi penambahan jika melebihi stok
+                if (productData && productData.stock !== undefined && newQuantity > productData.stock) {
+                    console.log(`Stok maksimal untuk '${productData.name}' adalah ${productData.stock}.`);
+                    return;
+                }
+                
+                item.quantity = newQuantity;
+                saveCart();
+                renderCart(); // Perbarui tampilan modal
+            }
+        };
+
+        window.removeCartItem = (productId) => {
+            cart = cart.filter(item => item.id !== productId);
+            saveCart();
+            renderCart(); // Perbarui tampilan modal
+        };
+
+        const renderCart = () => {
+            const cartItemsEl = document.getElementById('cart-items');
+            const cartTotalEl = document.getElementById('cart-total');
+            const emptyMsgEl = document.getElementById('empty-cart-message');
+            let total = calculateCartTotal();
+
+            cartItemsEl.innerHTML = '';
+
+            if (cart.length === 0) {
+                emptyMsgEl.classList.remove('hidden');
+            } else {
+                emptyMsgEl.classList.add('hidden');
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    const imgSrc = item.img || 'https://placehold.co/50x50/94a3b8/ffffff?text=No+Img';
+
+                    // Cek stok dari data produk untuk pembatasan kuantitas (diperlukan untuk tombol +)
+                    const productData = PRODUCTS.find(p => p.id === item.id);
+                    const isMaxStock = productData && productData.stock !== undefined && item.quantity >= productData.stock;
+
+                    cartItemsEl.innerHTML += `
+                        <div class="flex items-center space-x-4 p-2 border rounded-lg bg-gray-50">
+                            <img src="${imgSrc}" alt="${item.name}" class="w-12 h-12 object-cover rounded-md flex-shrink-0">
+                            
+                            <div class="flex-grow min-w-0">
+                                <p class="font-bold text-blue-900 truncate">${item.name}</p>
+                                <p class="text-sm text-gray-600">${formatRupiah(item.price)}</p>
+                                <p class="font-bold text-primary">${formatRupiah(itemTotal)}</p>
+                            </div>
+
+                            <div class="flex items-center space-x-2 flex-shrink-0">
+                                <!-- Kontrol Kuantitas -->
+                                <button onclick="updateCartItemQuantity(${item.id}, -1)" class="qty-btn" aria-label="Kurangi kuantitas">
+                                    <i data-lucide="minus" class="w-3 h-3"></i>
+                                </button>
+                                <span class="font-semibold text-blue-900 w-5 text-center">${item.quantity}</span>
+                                <button onclick="updateCartItemQuantity(${item.id}, 1)" class="qty-btn ${isMaxStock ? 'opacity-50 cursor-not-allowed' : ''}" ${isMaxStock ? 'disabled' : ''} aria-label="Tambah kuantitas">
+                                    <i data-lucide="plus" class="w-3 h-3"></i>
+                                </button>
+                                
+                                <!-- Tombol Hapus -->
+                                <button onclick="removeCartItem(${item.id})" class="text-red-500 hover:text-red-700 ml-2 p-1" aria-label="Hapus item">
+                                    <i data-lucide="trash-2" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            cartTotalEl.textContent = formatRupiah(total);
+            saveCart(); 
+            lucide.createIcons(); // Panggil ulang untuk ikon di keranjang
+        };
+        
+        // --- Rendering ---
+        
+        /** Render Card Produk Tunggal (Tidak berubah) */
+        const renderProductCard = (product) => {
+            const productId = product.id || Math.floor(Math.random() * 100000000); 
+            const imgSrc = product.img || 'https://placehold.co/400x400/94a3b8/ffffff?text=No+Img';
+            
+            const badge = product.stock === 0 
+                ? '<span class="absolute top-2 right-2 bg-red-600 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md">Stok Habis</span>'
+                : '';
+                
+            return `
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 overflow-hidden border border-gray-100 product-card relative" data-category="${product.category}">
+                    <img src="${imgSrc}" alt="${product.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/94a3b8/ffffff?text=No+Img';" class="w-full h-48 object-cover">
+                    ${badge}
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold text-blue-900 truncate mb-1">${product.name}</h3>
+                        <p class="text-sm text-gray-500 mb-3">${product.category}</p>
+                        <p class="text-2xl text-primary font-extrabold mb-4">${formatRupiah(product.price)}</p>
+                        <button onclick="addToCart(${productId})" class="btn-primary w-full py-2 text-white font-semibold rounded-full flex items-center justify-center text-center bg-primary hover:bg-amber-800 disabled:bg-gray-400" ${product.stock === 0 ? 'disabled' : ''}>
+                            <i data-lucide="shopping-cart" class="w-5 h-5 mr-2"></i> ${product.stock === 0 ? 'Stok Habis' : 'Tambah'}
+                        </button>
+                    </div>
+                </div>
+            `;
+        };
+
+        /** Render Daftar Produk di Katalog (Tidak berubah) */
+        const renderProductList = () => {
+            const productListElement = document.getElementById('product-list');
+            productListElement.innerHTML = '';
+            
+            const filteredProducts = PRODUCTS.filter(p =>
+                currentFilter === 'Semua' || p.category === currentFilter
+            );
+            
+            if (PRODUCTS.length === 0) {
+                 productListElement.innerHTML = '<p class="col-span-full text-center text-xl text-gray-500 py-10">Belum ada produk yang ditambahkan. Silakan tambahkan melalui halaman Admin.</p>';
+                 document.getElementById('loading-message').classList.add('hidden');
+                 return;
+            }
+
+            if (filteredProducts.length === 0) {
+                 productListElement.innerHTML = '<p class="col-span-full text-center text-xl text-gray-500 py-10">Produk tidak ditemukan dalam kategori ini.</p>';
+            } else {
+                filteredProducts.forEach(product => {
+                    productListElement.innerHTML += renderProductCard(product);
+                });
+            }
+
+            document.getElementById('loading-message').classList.add('hidden');
+            lucide.createIcons();
+        };
+        
+        /** Render Tombol Filter Kategori (Tidak berubah) */
+        const renderCategoryFilters = () => {
+            const filtersEl = document.getElementById('category-filters');
+            filtersEl.innerHTML = '';
+            
+            const categories = ['Semua', ...new Set(PRODUCTS.map(p => p.category))];
+            
+            categories.forEach(category => {
+                const isActive = category === currentFilter;
+                const button = document.createElement('button');
+                button.className = `category-filter px-4 py-2 text-sm rounded-full transition duration-300 ${
+                    isActive 
+                    ? 'bg-blue-900 text-white' 
+                    : 'bg-white text-blue-900 border border-blue-900 hover:bg-blue-50'
+                }`;
+                button.textContent = category;
+                button.setAttribute('data-category', category);
+                button.addEventListener('click', (e) => {
+                    // Reset styling semua tombol
+                    document.querySelectorAll('.category-filter').forEach(b => {
+                        b.classList.remove('bg-blue-900', 'text-white');
+                        b.classList.add('bg-white', 'text-blue-900', 'border', 'border-blue-900', 'hover:bg-blue-50');
+                    });
+                    
+                    // Set styling tombol yang diklik
+                    e.target.classList.remove('bg-white', 'text-blue-900', 'border', 'border-blue-900', 'hover:bg-blue-50');
+                    e.target.classList.add('bg-blue-900', 'text-white');
+                    
+                    currentFilter = category;
+                    renderProductList();
+                });
+                filtersEl.appendChild(button);
+            });
+        };
+
+        // --- Slider Logic (Tidak berubah) ---
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('#slider-container .slider-item');
+        const dotsContainer = document.getElementById('slider-dots');
+
+        const createDots = () => {
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'w-3 h-3 rounded-full bg-white opacity-50 cursor-pointer transition duration-300';
+                dot.onclick = () => showSlide(index);
+                dotsContainer.appendChild(dot);
+            });
+        };
+
+        const showSlide = (index) => {
+            slides.forEach(slide => slide.classList.remove('active'));
+            document.querySelectorAll('#slider-dots div').forEach(dot => dot.classList.remove('opacity-100', 'bg-primary'));
+            
+            if (slides[index]) {
+                slides[index].classList.add('active');
+                document.querySelectorAll('#slider-dots div')[index]?.classList.add('opacity-100', 'bg-primary');
+                currentSlide = index;
+            }
+        };
+
+        const nextSlide = () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        };
+        
+        // Inisialisasi slider hanya jika ada slide
+        if (slides.length > 0) {
+             createDots();
+             showSlide(0);
+             setInterval(nextSlide, 5000); // Ganti slide setiap 5 detik
+        }
+        
+        // --- Event Listeners ---
+        
+        const initListeners = () => {
+            // Cart Modal Open
+            document.getElementById('cart-btn').addEventListener('click', () => {
+                renderCart();
+                document.getElementById('cart-modal').classList.remove('hidden');
+            });
+            // Cart Modal Close
+            document.getElementById('close-cart-modal').addEventListener('click', () => {
+                document.getElementById('cart-modal').classList.add('hidden');
+            });
+            // Checkout Button (Simple Console Log)
+            document.getElementById('checkout-btn').addEventListener('click', () => {
+                 console.log(`Lanjutkan ke pembayaran dengan total ${document.getElementById('cart-total').textContent}.`);
+                 // Di aplikasi nyata, ini akan membuka modal checkout
+            });
+        };
+
+        // --- Initialization on Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Baca data produk dari Local Storage
+            loadProducts(); 
+            
+            // 2. Render daftar produk
+            renderProductList(); 
+            
+            // 3. Render filter kategori
+            renderCategoryFilters();
+            
+            // 4. Inisialisasi keranjang
+            saveCart(); 
+            
+            // 5. Inisialisasi event listener dan ikon
+            initListeners();
+            lucide.createIcons(); 
+        });
+
+    </script>
+</body>
+</html>
